@@ -11,8 +11,16 @@ import UIKit
 
 final class MonthCell: KVKCollectionViewCell {
     
-    private let titlesCount = 3
-    private let countInCell: CGFloat = 4
+    #warning("Pod modified")
+    //MARK: - OEM
+    //private let titlesCount = 3
+    private let titlesCount = 5
+    
+    #warning("Pod modified")
+    //MARK: - OEM
+    //private let countInCell: CGFloat = 4
+    private let countInCell: CGFloat = 7
+    
     private let offset: CGFloat = 3
     private let defaultTagView = -1
     private let defaultTagStubView = -2
