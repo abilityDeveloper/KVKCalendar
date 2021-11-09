@@ -252,7 +252,11 @@ public struct MonthStyle {
     public var isHiddenTitleDate: Bool = false
     public var colorDate: UIColor = .black
     public var colorNameEmptyDay: UIColor = gainsboro
-    public var fontNameDate: UIFont = .boldSystemFont(ofSize: 16)
+    #warning("Pod modified")
+    //MARK: - OEM
+    //public var fontNameDate: UIFont = .boldSystemFont(ofSize: 16)
+    public var fontNameDate: UIFont = .boldSystemFont(ofSize: 11)
+    
     public var colorCurrentDate: UIColor = .white
     public var colorBackgroundCurrentDate: UIColor = .systemRed
     public var colorBackgroundSelectDate: UIColor = .black
