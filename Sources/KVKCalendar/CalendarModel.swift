@@ -277,12 +277,12 @@ extension Event {
         
         if let dictionary = data as? [String : Any] {
             if let newDate = newDate,
-               let frequency = dictionary[" "] as? Int {
+               let recurrenceFrequency = dictionary["RF"] as? Int {
                 
                 let adjustedDate = newDate < self.start ? recurrenceEndDate : newDate
                 let fallbackDate = calendar.date(byAdding: .month, value: 2, to: adjustedDate)!
                 
-                recurrenceEndDate = dictionary["    "] as? Date ?? fallbackDate
+                recurrenceEndDate = dictionary["RED"] as? Date ?? fallbackDate
                 while recurrenceEndDate < self.start {
                     recurrenceEndDate = calendar.date(byAdding: .month, value: 1, to: recurrenceEndDate)!
                 }
@@ -293,7 +293,7 @@ extension Event {
                     switch recurringType {
                     case .everyXDays:
                         if let difference = calendar.dateComponents([.day], from: start.startOfDay!, to: newDate.startOfDay!).day {
-                            newDateModulo = difference % frequency
+                            newDateModulo = difference % recurrenceFrequency
                         }
                         guard newDateModulo == 0 else { return nil }
                         startComponents.day = newDate.day
@@ -301,7 +301,7 @@ extension Event {
                         
                     case .everyXWeeks:
                         if let difference = calendar.dateComponents([.weekOfMonth], from: start.startSundayOfWeek!, to: newDate.startSundayOfWeek!).weekOfMonth {
-                            newDateModulo = difference % frequency
+                            newDateModulo = difference % recurrenceFrequency
                         }
                         guard newDate.weekday == start.weekday && newDateModulo == 0 else { return nil }
                         startComponents.day = newDate.day
@@ -311,9 +311,21 @@ extension Event {
                         
                     case .everyXMonths:
                         if let difference = calendar.dateComponents([.month], from: start.startOfMonth!, to: newDate.startOfMonth!).month {
-                            newDateModulo = difference % frequency
+                            newDateModulo = difference % recurrenceFrequency
                         }
                         guard newDate.month != start.month && newDate.day == start.day && newDateModulo == 0 else { return nil }
+                        /*
+                         if dictionary["RW", "RWd"]
+                         get WeekCount, set if weekday is RWd
+                         */
+                        if let recurrenceWeek = dictionary["RW"],
+                           let recurrenceWeekday = dictionary["Rwd"] {
+                            print(newDate)
+                            
+                            //if
+                        }
+                        
+                        
                         startComponents.day = newDate.day
                         
                         
@@ -327,7 +339,7 @@ extension Event {
                         let newDateYear = calendar.date(from: yearComponents)!
                         
                         if let difference = calendar.dateComponents([.year], from: startYear, to: newDateYear).year {
-                            newDateModulo = difference % frequency
+                            newDateModulo = difference % recurrenceFrequency
                         }
                         guard newDate.year != start.year && newDate.month == start.month && newDate.day == start.day && newDateModulo == 0 else { return nil }
                         startComponents.day = newDate.day
