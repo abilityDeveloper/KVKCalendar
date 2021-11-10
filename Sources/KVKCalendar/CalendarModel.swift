@@ -322,7 +322,7 @@ extension Event {
                         } else {
                             guard newDate.day == start.day else { return nil }
                             startComponents.day = newDate.day
-                        }                                                
+                        }
                         
                         
                     case .everyXYears:
@@ -347,26 +347,24 @@ extension Event {
                     return nil
                 }
             }
+            
+        } else {
+            switch recurringType {
+            case .everyDay:
+                startComponents.day = newDate?.day
+            case .everyWeek where newDate?.weekday == start.weekday:
+                startComponents.day = newDate?.day
+                startComponents.weekday = newDate?.weekday
+                endComponents.weekday = newDate?.weekday
+            case .everyMonth where newDate?.month != start.month && newDate?.day == start.day:
+                startComponents.day = newDate?.day
+            case .everyYear where newDate?.year != start.year && newDate?.month == start.month && newDate?.day == start.day:
+                startComponents.day = newDate?.day
+            default:
+                return nil
+            }
         }
         
-        
-        
-        
-        
-        switch recurringType {
-        case .everyDay:
-            startComponents.day = newDate?.day
-        case .everyWeek where newDate?.weekday == start.weekday:
-            startComponents.day = newDate?.day
-            startComponents.weekday = newDate?.weekday
-            endComponents.weekday = newDate?.weekday
-        case .everyMonth where newDate?.month != start.month && newDate?.day == start.day:
-            startComponents.day = newDate?.day
-        case .everyYear where newDate?.year != start.year && newDate?.month == start.month && newDate?.day == start.day:
-            startComponents.day = newDate?.day
-        default:
-            return nil
-        }
         
         let offsetDay = end.day - start.day
         if start.day == end.day {
