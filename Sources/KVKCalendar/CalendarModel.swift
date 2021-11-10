@@ -319,7 +319,7 @@ extension Event {
                          get WeekCount, set if weekday is RWd
                          */
                         if let recurrenceWeek = dictionary["RW"],
-                           let recurrenceWeekday = dictionary["Rwd"] {
+                           let recurrenceWeekday = dictionary["RWd"] {
                             print(newDate)
                             
                             //if
