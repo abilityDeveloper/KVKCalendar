@@ -313,26 +313,16 @@ extension Event {
                         if let difference = calendar.dateComponents([.month], from: start.startOfMonth!, to: newDate.startOfMonth!).month {
                             newDateModulo = difference % recurrenceFrequency
                         }
-                        guard newDate.month != start.month && newDate.day == start.day && newDateModulo == 0 else { return nil }
-                        /*
-                         if dictionary["RW", "RWd"]
-                         get WeekCount, set if weekday is RWd
-                         */
+                        guard newDate.month != start.month && newDateModulo == 0 else { return nil }
                         
                         if let recurrenceWeek = dictionary["RW"] as? Int,
                            let recurrenceWeekday = dictionary["RWd"] as? Int {
-                            
-//                            let weekCount = (newDate.day / 7) + 1
-                            if ((newDate.day / 7) + 1 == recurrenceWeek && newDate.weekday == recurrenceWeekday) {
-                                print(newDate)
-                                
-                            }
-                            
-                            //if
-                        }
-                        
-                        
-                        startComponents.day = newDate.day
+                            guard (newDate.day / 7) + 1 == recurrenceWeek && newDate.weekday == recurrenceWeekday else { return nil }
+                            startComponents.day = newDate.day
+                        } else {
+                            guard newDate.day == start.day else { return nil }
+                            startComponents.day = newDate.day
+                        }                                                
                         
                         
                     case .everyXYears:
