@@ -317,7 +317,7 @@ extension Event {
                         
                         if let recurrenceWeek = dictionary["RW"] as? Int,
                            let recurrenceWeekday = dictionary["RWd"] as? Int {
-                            guard (newDate.day / 7) + 1 == recurrenceWeek && (newDate.weekday - 1) == recurrenceWeekday else { return nil }
+                            guard Int(ceil(Double(newDate.day / 7) + 1)) == recurrenceWeek && (newDate.weekday - 1) == recurrenceWeekday else { return nil }
                             startComponents.day = newDate.day
                         } else {
                             guard newDate.day == start.day else { return nil }
