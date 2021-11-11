@@ -317,12 +317,19 @@ extension Event {
                         
                         if let recurrenceWeek = dictionary["RW"] as? Int,
                            let recurrenceWeekday = dictionary["RWd"] as? Int {
-                            guard Int( ceil(Double(newDate.day) / Double(7)) ) == recurrenceWeek && (newDate.weekday - 1) == recurrenceWeekday else { return nil }
-                            startComponents.day = newDate.day
+                            guard (newDate.weekday - 1) == recurrenceWeekday else { return nil }
+                            
+                            if (recurrenceWeek == 6) {
+                                let lastWeekOfMonthStart = Calendar.current.date(byAdding: .day, value: -6, to: newDate.endOfMonth!)!.day
+                                let lastWeekOfMonthEnd = newDate.endOfMonth!.day
+                                guard (lastWeekOfMonthStart...lastWeekOfMonthEnd).contains( newDate.day) else { return nil }
+                            } else {
+                                guard Int( ceil(Double(newDate.day) / Double(7)) ) == recurrenceWeek else { return nil }
+                            }
                         } else {
                             guard newDate.day == start.day else { return nil }
-                            startComponents.day = newDate.day
                         }
+                        startComponents.day = newDate.day
                         
                         
                     case .everyXYears:
