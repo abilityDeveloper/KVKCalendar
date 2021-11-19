@@ -282,8 +282,9 @@ extension Event {
             fallbackDate = calendar.date(byAdding: .month, value: 2, to: adjustedDate)!
             if let dictionary = data as? [String : Any] {
                 recurrenceEndDate = dictionary["RED"] as? Date ?? fallbackDate
-                if let deletedDates = dictionary["RDD"] as? Set<Date> {
-                    if (deletedDates.contains(newDate)) {
+                if let recurrenceDeletedDates = dictionary["RDD"] as? Set<Date>,
+                   let newDateStartOfDay = newDate.startOfDay {
+                    if (recurrenceDeletedDates.contains(newDateStartOfDay)) {
                         return nil
                     }
                 }
