@@ -289,8 +289,8 @@ extension Event {
                     }
                 }
             }
-            while recurrenceEndDate < self.start {
-                recurrenceEndDate = calendar.date(byAdding: .month, value: 1, to: recurrenceEndDate)!
+            while recurrenceEndDate < newDate {
+                recurrenceEndDate = calendar.date(byAdding: .day, value: 8, to: recurrenceEndDate)!
             }
             guard (self.start...recurrenceEndDate).contains( newDate) else { return nil }
         }
