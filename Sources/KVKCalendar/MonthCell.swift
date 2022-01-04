@@ -166,21 +166,9 @@ final class MonthCell: KVKCollectionViewCell {
                     //if !event.isAllDay || UIDevice.current.userInterfaceIdiom == .phone {
                     if !event.isAllDay /* || UIDevice.current.userInterfaceIdiom == .phone */ {
                         
-                        #warning("Pod modified")
-                        //MARK: - OEM
-                        //label.attributedText = addIconBeforeLabel(eventList: [event],
-                        //                                          textAttributes: [.font: monthStyle.fontEventTitle,
-                        //                                                           .foregroundColor: monthStyle.colorEventTitle],
-                        //                                          bulletAttributes: [.font: monthStyle.fontEventBullet,
-                        //                                                             .foregroundColor: event.color?.value ?? .systemGray],
-                        //                                          timeAttributes: [.font: monthStyle.fontEventTime,
-                        //                                                           .foregroundColor: UIColor.systemGray],
-                        //                                          indentation: 0,
-                        //                                          lineSpacing: 0,
-                        //                                          paragraphSpacing: 0)
                         label.attributedText = addIconBeforeLabel(eventList: [event],
                                                                   textAttributes: [.font: monthStyle.fontEventTitle,
-                                                                                   .foregroundColor: event.color?.value ?? .systemGray],
+                                                                                   .foregroundColor: monthStyle.colorEventTitle],
                                                                   bulletAttributes: [.font: monthStyle.fontEventBullet,
                                                                                      .foregroundColor: event.color?.value ?? .systemGray],
                                                                   timeAttributes: [.font: monthStyle.fontEventTime,
