@@ -161,10 +161,26 @@ final class MonthCell: KVKCollectionViewCell {
                     contentView.addSubview(label)
                     return
                 } else {
-                    if !event.isAllDay || UIDevice.current.userInterfaceIdiom == .phone {
+                    #warning("Pod modified")
+                    //MARK: - OEM
+                    //if !event.isAllDay || UIDevice.current.userInterfaceIdiom == .phone {
+                    if !event.isAllDay /* || UIDevice.current.userInterfaceIdiom == .phone */ {
+                        
+                        #warning("Pod modified")
+                        //MARK: - OEM
+                        //label.attributedText = addIconBeforeLabel(eventList: [event],
+                        //                                          textAttributes: [.font: monthStyle.fontEventTitle,
+                        //                                                           .foregroundColor: monthStyle.colorEventTitle],
+                        //                                          bulletAttributes: [.font: monthStyle.fontEventBullet,
+                        //                                                             .foregroundColor: event.color?.value ?? .systemGray],
+                        //                                          timeAttributes: [.font: monthStyle.fontEventTime,
+                        //                                                           .foregroundColor: UIColor.systemGray],
+                        //                                          indentation: 0,
+                        //                                          lineSpacing: 0,
+                        //                                          paragraphSpacing: 0)
                         label.attributedText = addIconBeforeLabel(eventList: [event],
                                                                   textAttributes: [.font: monthStyle.fontEventTitle,
-                                                                                   .foregroundColor: monthStyle.colorEventTitle],
+                                                                                   .foregroundColor: event.color?.value ?? .systemGray],
                                                                   bulletAttributes: [.font: monthStyle.fontEventBullet,
                                                                                      .foregroundColor: event.color?.value ?? .systemGray],
                                                                   timeAttributes: [.font: monthStyle.fontEventTime,
@@ -172,6 +188,7 @@ final class MonthCell: KVKCollectionViewCell {
                                                                   indentation: 0,
                                                                   lineSpacing: 0,
                                                                   paragraphSpacing: 0)
+                        
                     } else {
                         label.font = monthStyle.fontEventTitle
                         #warning("Pod modified")
