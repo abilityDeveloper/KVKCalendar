@@ -280,13 +280,16 @@ extension Event {
         if let newDate = newDate {
             adjustedDate = newDate < self.start ? recurrenceEndDate : newDate
             fallbackDate = calendar.date(byAdding: .month, value: 2, to: adjustedDate)!
+            
             if let dictionary = data as? [String : Any] {
-                recurrenceEndDate = dictionary["RED"] as? Date ?? fallbackDate
-                if let recurrenceDeletedDates = dictionary["RDD"] as? Set<Date>,
-                   let newDateStartOfDay = newDate.startOfDay {
+                if let recurrenceDeletedDates = dictionary["RDD"] as? Set<Date>, let newDateStartOfDay = newDate.startOfDay {
                     if (recurrenceDeletedDates.contains(newDateStartOfDay)) {
                         return nil
                     }
+                }
+                recurrenceEndDate = dictionary["RED"] as? Date ?? fallbackDate
+                if let pauseDate = dictionary["PD"] as? Date {
+                    recurrenceEndDate = recurrenceEndDate <= pauseDate ? recurrenceEndDate : pauseDate
                 }
             }
             while recurrenceEndDate < self.start {
